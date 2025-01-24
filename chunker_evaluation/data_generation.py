@@ -1,4 +1,7 @@
 import json
+import os
+import time
+
 import fitz
 from langchain.chat_models import ChatOllama
 
@@ -151,3 +154,34 @@ def save_qa_dataset(qa_dataset, output_filepath):
         json.dump(qa_dataset, f, indent=4)
 
 
+def generate_and_save_data(pdf_path, chunker, output_dir):
+    """
+    Generates and saves QA datasets for each PDF using the given chunker.
+
+    Parameters
+    ----------
+    pdf_path : str
+        Path to the directory containing the PDF files.
+    chunker : BaseChunker
+        The chunker to use for splitting the documents.
+    output_dir : str
+        Path to the directory where the generated data will be saved.
+    """
+    os.makedirs(output_dir, exist_ok=True)
+
+    for filename in os.listdir(pdf_path):
+        if filename.endswith(".pdf"):
+            filepath = os.path.join(pdf_path, filename)
+            start_time = time.time()
+
+            qa_dataset = generate_qa_dataset(filepath, chunker)
+
+            output_filename = os.path.splitext(filename)[0] + "_qa_dataset.json"
+            output_filepath = os.path.join(output_dir, output_filename)
+
+            save_qa_dataset(qa_dataset, output_filepath)
+
+            elapsed_time = time.time() - start_time
+            print(
+                f"Generated and saved data for {filename} in {elapsed_time:.2f} seconds"
+            )
