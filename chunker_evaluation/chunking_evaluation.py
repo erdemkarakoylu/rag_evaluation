@@ -38,3 +38,29 @@ def calculate_metrics(retrieved_chunks, expected_answer):
         "precision": precision,
         "f1": f1
     }
+
+
+def retrieve_top_k_chunks(chunks, chunk_embeddings, question_embedding, k=TOP_K_CHUNKS):
+    """
+    Retrieves the top-k most similar chunks to the question embedding.
+
+    Parameters
+    ----------
+    chunks : list[str]
+        A list of text chunks.
+    chunk_embeddings : list[np.ndarray]
+        A list of embeddings for the chunks.
+    question_embedding : np.ndarray
+        The embedding of the question.
+    k : int, optional
+        The number of top chunks to retrieve, by default 5.
+
+    Returns
+    -------
+    list[str]
+        A list of the top-k most similar chunks.
+    """
+    similarities = cosine_similarity([question_embedding], chunk_embeddings)[0]
+    top_k_indices = np.argsort(similarities)[::-1][:k]
+    return [chunks[i] for i in top_k_indices]
+
