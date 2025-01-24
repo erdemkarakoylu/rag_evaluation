@@ -1,13 +1,14 @@
 import json
 import os
 import time
-
 import fitz
 from langchain.chat_models import ChatOllama
 
 # Configuration
 OLLAMA_BASE_URL = "http://localhost:11434"
 MODEL_NAME = "llama3.1"
+
+
 def load_pdf(filepath):
     """
     Extracts text content from a PDF file, optionally removing headers.
@@ -79,6 +80,7 @@ def extract_answer(response):
     answer = response.split("Answer:")[-1].strip()
     return answer
 
+
 def generate_qa_dataset(filepath, chunker):
     """
     Generates a QA dataset for a given PDF file and chunker.
@@ -138,6 +140,7 @@ def generate_qa_dataset(filepath, chunker):
             qa_dataset.append({"question": question, "answer": answer, "chunk": chunk})
 
     return qa_dataset
+
 
 def save_qa_dataset(qa_dataset, output_filepath):
     """
