@@ -1,3 +1,4 @@
+import json
 import fitz
 from langchain.chat_models import ChatOllama
 
@@ -134,3 +135,19 @@ def generate_qa_dataset(filepath, chunker):
             qa_dataset.append({"question": question, "answer": answer, "chunk": chunk})
 
     return qa_dataset
+
+def save_qa_dataset(qa_dataset, output_filepath):
+    """
+    Saves the QA dataset to a JSON file.
+
+    Parameters
+    ----------
+    qa_dataset : list[dict]
+        The QA dataset to save.
+    output_filepath : str
+        The path to the output JSON file.
+    """
+    with open(output_filepath, "w") as f:
+        json.dump(qa_dataset, f, indent=4)
+
+
