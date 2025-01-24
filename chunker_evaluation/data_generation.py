@@ -57,6 +57,24 @@ def extract_questions(response):
             questions.append(question)
     return questions
 
+
+def extract_answer(response):
+    """
+    Extracts the answer from the LLM response.
+
+    Parameters
+    ----------
+    response : str
+        The LLM response containing the answer.
+
+    Returns
+    -------
+    str
+        The extracted answer.
+    """
+    answer = response.split("Answer:")[-1].strip()
+    return answer
+
 def generate_qa_dataset(filepath, chunker):
     """
     Generates a QA dataset for a given PDF file and chunker.
