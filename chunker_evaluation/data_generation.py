@@ -1,12 +1,17 @@
+import configparser
 import json
 import os
 import time
 import fitz
 from langchain.chat_models import ChatOllama
 
-# Configuration
-OLLAMA_BASE_URL = "http://localhost:11434"
-MODEL_NAME = "llama3.1"
+# Load configuration from config.ini
+config = configparser.ConfigParser()
+config.read('config.ini')
+
+# Define global variables
+OLLAMA_BASE_URL = config.get('DEFAULT', 'ollama_base_url')
+MODEL_NAME = config.get('MODEL', 'model_name')
 
 
 def load_pdf(filepath):

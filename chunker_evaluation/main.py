@@ -1,3 +1,4 @@
+import configparser
 import os
 import time
 
@@ -10,7 +11,21 @@ from analysis import analyze_chunk_lengths, count_chunks
 from loguru import logger
 
 # Configuration
-OLLAMA_BASE_URL = "http://localhost:11434"
+#OLLAMA_BASE_URL = "http://localhost:11434"
+#PDF_DIR = "path/to/your/pdfs"
+#OUTPUT_DIR = "path/to/your/output/directory"
+
+# Load configuration from config.ini
+config = configparser.ConfigParser()
+config.read('config.ini')
+
+# Load configuration from config.ini
+config = configparser.ConfigParser()
+config.read('config.ini')
+
+# Define global variables
+PDF_DIR = config.get('DATA', 'pdf_dir')
+OUTPUT_DIR = config.get('DATA', 'output_dir')
 
 if __name__ == "__main__":
     # --- Data Generation ---

@@ -1,3 +1,4 @@
+import configparser
 import json
 import os
 
@@ -6,9 +7,14 @@ from langchain.embeddings import SentenceTransformerEmbeddings
 from sklearn.metrics.pairwise import cosine_similarity
 from data_generation import load_pdf
 
-# Configuration
-EMBEDDING_MODEL_NAME = "all-MiniLM-L6-v2"
-TOP_K_CHUNKS = 5
+
+# Load configuration from config.ini
+config = configparser.ConfigParser()
+config.read('config.ini')
+
+# Define global variables
+EMBEDDING_MODEL_NAME = config.get('MODEL', 'embedding_model_name')
+TOP_K_CHUNKS = config.getint('MODEL', 'top_k_chunks')
 
 def calculate_metrics(retrieved_chunks, expected_answer):
     """
