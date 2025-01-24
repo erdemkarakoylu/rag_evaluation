@@ -2,6 +2,7 @@ import re
 from chunking_evaluation import BaseChunker
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 
+
 class SimpleSplitter(BaseChunker):
     """Splits text into paragraphs using two or more newlines as delimiter."""
 
