@@ -28,6 +28,7 @@ PDF_DIR = config.get('DATA', 'pdf_dir')
 OUTPUT_DIR = config.get('DATA', 'output_dir')
 
 if __name__ == "__main__":
+    
     # --- Data Generation ---
     for chunker_name, chunker in chunker_implementations.items():
         logger.info(f"Generating data for chunker: {chunker_name}")
