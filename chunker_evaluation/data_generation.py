@@ -34,6 +34,29 @@ def load_pdf(filepath):
             text += text_content + "\n"
     return text
 
+
+def extract_questions(response):
+    """
+    Extracts questions from the LLM response.
+
+    Parameters
+    ----------
+    response : str
+        The LLM response containing the questions.
+
+    Returns
+    -------
+    list[str]
+        A list of extracted questions.
+    """
+    questions = []
+    lines = response.split("\n")
+    for line in lines:
+        if line.startswith(tuple(["1.", "2.", "3."])):
+            question = line[line.index(".") + 1 :].strip()
+            questions.append(question)
+    return questions
+
 def generate_qa_dataset(filepath, chunker):
     """
     Generates a QA dataset for a given PDF file and chunker.
