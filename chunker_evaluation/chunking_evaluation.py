@@ -27,10 +27,14 @@ def calculate_metrics(retrieved_chunks, expected_answer):
     )
     precision = intersection / len(set(retrieved_text.split())) if retrieved_text else 0
     precision_omega = precision * (iou + recall) / 2
+    # Calculate F1-score
+    f1 = 2 * (precision * recall) / (
+        precision + recall) if (precision + recall) else 0
     
     return {
         "iou": iou,
         "recall": recall,
         "precision_omega": precision_omega,
         "precision": precision,
+        "f1": f1
     }
